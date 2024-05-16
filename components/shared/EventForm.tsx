@@ -31,40 +31,29 @@ type EventFormProps = {
 }
 
 const EventForm = ({ userId, type, event, eventId }: EventFormProps) => {
-  const [files, setFiles] = useState<File[]>([])
-  const initialValues = event && type === 'Update' 
-    ? { 
-      ...event, 
-      startDateTime: new Date(event.startDateTime), 
-      endDateTime: new Date(event.endDateTime) 
-    }
-    : eventDefaultValues;
+  // const [files, setFiles] = useState<File[]>([])
+  // const initialValues = event && type === 'Update' 
+  //   ? { 
+  //     ...event, 
+  //     startDateTime: new Date(event.startDateTime), 
+  //     endDateTime: new Date(event.endDateTime) 
+  //   }
+  //   : eventDefaultValues;
   const router = useRouter();
 
-  const { startUpload } = useUploadThing('imageUploader')
+  // const { startUpload } = useUploadThing('imageUploader')
 
   const form = useForm<z.infer<typeof eventFormSchema>>({
     resolver: zodResolver(eventFormSchema),
-    defaultValues: initialValues
+    // defaultValues: initialValues
   })
  
   async function onSubmit(values: z.infer<typeof eventFormSchema>) {
-    let uploadedImageUrl = values.imageUrl;
-
-    if(files.length > 0) {
-      const uploadedImages = await startUpload(files)
-
-      if(!uploadedImages) {
-        return
-      }
-
-      uploadedImageUrl = uploadedImages[0].url
-    }
 
     if(type === 'Create') {
       try {
         const newEvent = await createEvent({
-          event: { ...values, imageUrl: uploadedImageUrl },
+          event: { ...values },
           userId,
           path: '/profile'
         })
@@ -87,7 +76,7 @@ const EventForm = ({ userId, type, event, eventId }: EventFormProps) => {
       try {
         const updatedEvent = await updateEvent({
           userId,
-          event: { ...values, imageUrl: uploadedImageUrl, _id: eventId },
+          event: { ...values, _id: eventId },
           path: `/events/${eventId}`
         })
 
@@ -131,7 +120,7 @@ const EventForm = ({ userId, type, event, eventId }: EventFormProps) => {
           />
         </div>
 
-        <div className="flex flex-col gap-5 md:flex-row">
+        {/* <div className="flex flex-col gap-5 md:flex-row">
           <FormField
               control={form.control}
               name="description"
@@ -315,7 +304,7 @@ const EventForm = ({ userId, type, event, eventId }: EventFormProps) => {
                 </FormItem>
               )}
             />
-        </div>
+        </div> */}
 
 
         <Button 
