@@ -4,7 +4,7 @@ export const headerLinks = [
           route: '/',
         },
         {
-          label: 'Create Event',
+          label: 'Search',
           route: '/events/create',
         },
         {
@@ -15,13 +15,16 @@ export const headerLinks = [
       
       export const eventDefaultValues = {
         title: '',
-        description: '',
-        location: '',
-        imageUrl: '',
-        startDateTime: new Date(),
-        endDateTime: new Date(),
+        // description: '',
+        // location: '',
+        // imageUrl: '',
+        // startDateTime: new Date(),
+        // endDateTime: new Date(),
         categoryId: '',
-        price: '',
-        isFree: false,
-        url: '',
+        surfingLevel: '',
+        budget: '',
+        waterTemp: '',
+        // price: '',
+        // isFree: false,
+        // url: '',
       }

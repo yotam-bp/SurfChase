@@ -12,7 +12,7 @@ const poppins = Poppins({
 
 export const metadata: Metadata = {
   title: 'Surf Chase',
-  description: 'Surf Chase is a platform for event management.',
+  description: 'Surf Chase is a platform for searching surf destination.',
   icons: {
     icon: '/assets/images/logo.svg'
   }

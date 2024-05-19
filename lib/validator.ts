@@ -8,6 +8,9 @@ export const eventFormSchema = z.object({
   // startDateTime: z.date(),
   // endDateTime: z.date(),
   categoryId: z.string(),
+  surfingLevel: z.string(),
+  budget: z.string(),
+  waterTemp: z.string(),
   // price: z.string(),
   // isFree: z.boolean(),
   // url: z.string().url()

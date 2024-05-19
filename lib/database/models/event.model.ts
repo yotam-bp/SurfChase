@@ -12,6 +12,9 @@ export interface IEvent extends Document {
   // price: string;
   // isFree: boolean;
   // url?: string;
+  surfingLevel: string;
+  budget: string;
+  waterTemp: string;
   category: { _id: string, name: string }
   organizer: { _id: string, firstName: string, lastName: string }
 }
@@ -27,6 +30,9 @@ const EventSchema = new Schema({
   // price: { type: String },
   // isFree: { type: Boolean, default: false },
   // url: { type: String },
+  surfingLevel: { type: String, required: true },
+  budget: { type: String, required: true },
+  waterTemp: { type: String, required: true },
   category: { type: Schema.Types.ObjectId, ref: 'Category' },
   organizer: { type: Schema.Types.ObjectId, ref: 'User' },
 })
