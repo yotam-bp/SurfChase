@@ -11,7 +11,6 @@ export const getQuestionnaire = async () => {
   try {
     await connectToDatabase();
     const questionnaire = await Questionnaire.find();
-    console.log(questionnaire);
     return JSON.parse(JSON.stringify(questionnaire));
   } catch (error) {
     handleError(error);

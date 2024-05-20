@@ -53,8 +53,7 @@ const EventForm = ({ userId, type, event, eventId }: EventFormProps) => {
     loadQuestionnaire();
   }, []);
 
-  console.log(questionnaire);
-  const optionKeys = ["title", "categoryId", "surfingLevel", "budget", "waterTemp"] as const;
+  const optionKeys = [ "surfingLevel", "budget", "waterTemp"] as const;
   type OptionKeys = typeof optionKeys[number];
   const initialValues = event && type === "Update" ? {...event } : eventDefaultValues;
   const router = useRouter();
@@ -66,7 +65,6 @@ const EventForm = ({ userId, type, event, eventId }: EventFormProps) => {
 
   async function onSubmit(values: z.infer<typeof eventFormSchema>) {
     if (type === "Create") {
-      console.log(values, userId);
       try {
         const newEvent = await createEvent({
           event: { ...values },
@@ -124,6 +122,18 @@ const EventForm = ({ userId, type, event, eventId }: EventFormProps) => {
                     {...field}
                     className="input-field"
                   />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+           <FormField
+            control={form.control}
+            name="categoryId"
+            render={({ field }) => (
+              <FormItem className="w-full">
+                <FormControl>
+                  <Dropdown onChangeHandler={field.onChange} value={field.value} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
