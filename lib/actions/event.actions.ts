@@ -96,14 +96,15 @@ export async function deleteEvent({ eventId, path }: DeleteEventParams) {
 }
 
 // GET ALL EVENTS
-export async function getAllEvents({ query, limit = 6, page, category }: GetAllEventsParams) {
+export async function getAllEventsByUser({ query, limit = 6, page, category, userId }: GetAllEventsParams) {
   try {
     await connectToDatabase()
 
     const titleCondition = query ? { title: { $regex: query, $options: 'i' } } : {}
     const categoryCondition = category ? await getCategoryByName(category) : null
+    const userCondition = userId ? { organizer: userId } : {};
     const conditions = {
-      $and: [titleCondition, categoryCondition ? { category: categoryCondition._id } : {}],
+      $and: [titleCondition, userCondition, categoryCondition ? { category: categoryCondition._id } : {}],
     }
 
     const skipAmount = (Number(page) - 1) * limit

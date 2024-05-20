@@ -59,6 +59,7 @@ export type CreateUserParams = {
       export type GetAllEventsParams = {
         query: string
         category: string
+        userId: string
         limit: number
         page: number
       }

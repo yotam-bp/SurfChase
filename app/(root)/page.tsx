@@ -2,8 +2,9 @@ import CategoryFilter from '@/components/shared/CategoryFilter';
 import Collection from '@/components/shared/Collection'
 import Search from '@/components/shared/Search';
 import { Button } from '@/components/ui/button'
-import { getAllEvents } from '@/lib/actions/event.actions';
+import { getAllEventsByUser } from '@/lib/actions/event.actions';
 import { SearchParamProps } from '@/types';
+import { auth } from '@clerk/nextjs';
 import Image from 'next/image'
 import Link from 'next/link'
 
@@ -11,9 +12,12 @@ export default async function Home({ searchParams }: SearchParamProps) {
   const page = Number(searchParams?.page) || 1;
   const searchText = (searchParams?.query as string) || '';
   const category = (searchParams?.category as string) || '';
-
-  const events = await getAllEvents({
+  const { sessionClaims } = auth();
+  const userId = sessionClaims?.userId as string;
+  
+  const events = await getAllEventsByUser({
     query: searchText,
+    userId,
     category,
     page,
     limit: 6
@@ -27,7 +31,7 @@ export default async function Home({ searchParams }: SearchParamProps) {
             <h1 className="h1-bold">Find your next surf trip by your terms, easily!</h1>
             <p className="p-regular-20 md:p-regular-24">Answer the questions, specify the smallest details, discover the right vacation for you.</p>
             <Button size="lg" asChild className="button w-full sm:w-fit">
-              <Link href="#events">
+              <Link href='/events/create'>
                 Explore Now
               </Link>
             </Button>
