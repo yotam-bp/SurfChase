@@ -4,8 +4,8 @@ import {
   getAllEventsByUser,
   getEventsByUser,
 } from "@/lib/actions/event.actions";
+import { getAllLocations } from "@/lib/actions/location.actions";
 // import { getOrdersByUser } from '@/lib/actions/order.actions'
-import { IOrder } from "@/lib/database/models/order.model";
 import { SearchParamProps } from "@/types";
 import { auth } from "@clerk/nextjs";
 import Link from "next/link";
@@ -29,6 +29,15 @@ const ProfilePage = async ({ searchParams }: SearchParamProps) => {
     page,
     limit: 6,
   });
+
+  const locations = await getAllLocations({
+    query: searchText,
+    page,
+    limit: 6,
+  });
+
+  // console.log(locations);
+  
 
   //   const orderedEvents = orders?.data.map((order: IOrder) => order.event) || [];
   const organizedEvents = await getEventsByUser({ userId, page: eventsPage });

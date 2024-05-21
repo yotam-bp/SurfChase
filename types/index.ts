@@ -55,7 +55,6 @@ export type CreateUserParams = {
         eventId: string
         path: string
       }
-      
       export type GetAllEventsParams = {
         query: string
         category: string
@@ -98,7 +97,13 @@ export type CreateUserParams = {
           name: string
         }
       }
-      
+
+      // ====== LOCATION PARAMS
+      export type getAllLocationsParams = {
+        query: string
+        limit: number
+        page: number
+      }
       // ====== CATEGORY PARAMS
       export type CreateCategoryParams = {
         categoryName: string
