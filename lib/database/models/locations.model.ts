@@ -11,7 +11,7 @@ export interface ILocation extends Document {
   region: string;
   spots: ISpot[];
   budget: string;
-  season: ISeason;
+  seasons: ISeason[];
   monthlyTemperatures: IMonthlyTemperature; 
   imageUrl:string;
 }
@@ -23,7 +23,7 @@ const LocationSchema: Schema = new Schema({
   region: { type: String, required: true },
   spots: [{ type: Schema.Types.ObjectId, ref: 'Spot', required: true }],
   budget: { type: String, required: true },
-  season: { type: Schema.Types.ObjectId, ref: 'Season', required: true },
+  seasons: [{ type: Schema.Types.ObjectId, ref: 'Season', required: true }],
   monthlyTemperatures: { type: Schema.Types.ObjectId, ref: 'MonthlyTemperature', required: true },
   imageUrl: { type: String, required: true },
 });

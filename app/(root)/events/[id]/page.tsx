@@ -1,4 +1,5 @@
 import Collection from '@/components/shared/Collection';
+import run from '@/lib/actions/createLocation.actions';
 import { getEventById, getRelatedEventsByCategory } from '@/lib/actions/event.actions'
 import { getLocationIdById } from '@/lib/actions/location.actions';
 import { formatDateTime } from '@/lib/utils';
@@ -8,7 +9,7 @@ import Image from 'next/image';
 const EventDetails = async ({ params: { id }, searchParams }: SearchParamProps) => {
   const location = await getLocationIdById(id);
 console.log(location);
-
+// run()
   // const relatedEvents = await getRelatedEventsByCategory({
   //   categoryId: event.category._id,
   //   eventId: event._id,
@@ -43,7 +44,7 @@ console.log(location);
 
                 <p className="p-medium-18 ml-2 mt-2 sm:mt-0">
                   by{' '}
-                  <span className="text-primary-500">{location.budget} {location.season.type}</span>
+                  {/* <span className="text-primary-500">{location.budget} {location.season.}</span> */}
                 </p>
               </div>
             </div>
@@ -56,14 +57,14 @@ console.log(location);
 
               <div className="p-regular-20 flex items-center gap-3">
                 <Image src="/assets/icons/location.svg" alt="location" width={32} height={32} />
-                <p className="p-medium-16 lg:p-regular-20">{location.season.crowd}</p>
+                {/* <p className="p-medium-16 lg:p-regular-20">{location.season.crowd}</p> */}
               </div>
             </div>
 
             <div className="flex flex-col gap-2">
               <p className="p-bold-20 text-grey-600">What You'll Learn:</p>
-              <p className="p-medium-16 lg:p-regular-18">{location.season.crowd}</p>
-              <p className="p-medium-16 lg:p-regular-18 truncate text-primary-500 underline">{location.season.crowd}</p>
+              {/* <p className="p-medium-16 lg:p-regular-18">{location.season.crowd}</p> */}
+              {/* <p className="p-medium-16 lg:p-regular-18 truncate text-primary-500 underline">{location.season.crowd}</p> */}
             </div>
           </div>
         </div>
@@ -71,7 +72,7 @@ console.log(location);
 
       {/* EVENTS with the same category */}
       <section className="wrapper my-8 flex flex-col gap-8 md:gap-12">
-        <h2 className="h2-bold">Related Events</h2>
+        {/* <h2 className="h2-bold">Related Events</h2> */}
 
         {/* <Collection
           data={relatedEvents?.data}

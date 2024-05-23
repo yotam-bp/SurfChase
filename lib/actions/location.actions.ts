@@ -7,7 +7,7 @@ import Location from "../database/models/locations.model";
 
 const populateLocation = (query: any) => {
         return query
-          .populate({ path: 'season', model: Season, select: '_id type crowd surfingLevel ' })
+          // .populate({ path: 'season', model: Season, select: '_id type crowd surfingLevel months ' })
           .populate({ path: 'spots', model: Spot, select: '_id name' })
       }
 
