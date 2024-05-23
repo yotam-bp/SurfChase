@@ -60,10 +60,10 @@ const Card = ({ location }: CardProps) => {
             {location.region} 
           </p>
 
-          <Link
+          {/* <Link
             href={`/orders?eventId=${location.season}`}
             className="flex gap-2"
-          >
+          > */}
             <p className="text-primary-500">See Spots</p>
             <Image
               src="/assets/icons/arrow.svg"
@@ -71,7 +71,7 @@ const Card = ({ location }: CardProps) => {
               width={10}
               height={10}
             />
-          </Link>
+          {/* </Link> */}
         </div>
       </div>
     </div>

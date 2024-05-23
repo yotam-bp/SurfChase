@@ -10,6 +10,21 @@ const populateLocation = (query: any) => {
           .populate({ path: 'season', model: Season, select: '_id type crowd surfingLevel ' })
           .populate({ path: 'spots', model: Spot, select: '_id name' })
       }
+
+      export async function getLocationIdById(locationId: string) {
+  
+        try {
+          await connectToDatabase()
+          
+          const location = await populateLocation(Location.findById(locationId))
+      
+          if (!location) throw new Error('Location not found')
+      
+          return JSON.parse(JSON.stringify(location))
+        } catch (error) {
+          handleError(error)
+        }
+      }
 export async function getAllLocations({ query, limit = 6, page }: getAllLocationsParams) {
         try {
           await connectToDatabase()
