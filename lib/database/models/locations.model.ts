@@ -1,14 +1,19 @@
 import mongoose, { Schema, Document, Model } from 'mongoose';
+import { ISeason } from './season.model';
+import { IMonthlyTemperature } from './monthlyTemperature.model';
+import { ISpot } from './spot.model';
 
 // Interface for Location
 export interface ILocation extends Document {
+  _id: string;
   name: string;
   country: string;
   region: string;
-  spots: mongoose.Types.ObjectId[];
+  spots: ISpot[];
   budget: string;
-  season: mongoose.Types.ObjectId;
-  monthlyTemperatures: mongoose.Types.ObjectId; // Reference to a MonthlyTemperature document
+  season: ISeason;
+  monthlyTemperatures: IMonthlyTemperature; 
+  imageUrl:string;
 }
 
 // Schema for Location
@@ -19,7 +24,8 @@ const LocationSchema: Schema = new Schema({
   spots: [{ type: Schema.Types.ObjectId, ref: 'Spot', required: true }],
   budget: { type: String, required: true },
   season: { type: Schema.Types.ObjectId, ref: 'Season', required: true },
-  monthlyTemperatures: { type: Schema.Types.ObjectId, ref: 'MonthlyTemperature', required: true }
+  monthlyTemperatures: { type: Schema.Types.ObjectId, ref: 'MonthlyTemperature', required: true },
+  imageUrl: { type: String, required: true },
 });
 
 // Create the Location model

@@ -84,10 +84,10 @@ const EventDetails = async ({ params: { id }, searchParams }: SearchParamProps) 
           data={relatedEvents?.data}
           emptyTitle="No Events Found"
           emptyStateSubtext="Come back later"
-          collectionType="All_Events"
+          // collectionType="All_Events"
           limit={3}
           page={searchParams.page as string}
-          totalPages={relatedEvents?.totalPages}
+          // totalPages={relatedEvents?.totalPages}
         />
       </section>
     </>

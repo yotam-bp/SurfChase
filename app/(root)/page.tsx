@@ -59,10 +59,10 @@ export default async function Home({ searchParams }: SearchParamProps) {
           data={events?.data}
           emptyTitle="Nothing Is Here Yet"
           emptyStateSubtext="Search your dream vacation now"
-          collectionType="All_Events"
+          // collectionType="All_Events"
           limit={6}
           page={page}
-          totalPages={events?.totalPages}
+          // totalPages={events?.totalPages}
         />
       </section>
     </>

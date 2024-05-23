@@ -2,6 +2,7 @@ import mongoose, { Schema, Document, Model } from 'mongoose';
 
 // Interface for a single monthly temperature
 interface IMonthlyTemperatureEntry extends Document {
+  _id: string;
   month: string;
   seaTemperature: number;
   outsideTemperature: number;

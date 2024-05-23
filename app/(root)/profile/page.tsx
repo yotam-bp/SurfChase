@@ -40,7 +40,7 @@ const ProfilePage = async ({ searchParams }: SearchParamProps) => {
   
 
   //   const orderedEvents = orders?.data.map((order: IOrder) => order.event) || [];
-  const organizedEvents = await getEventsByUser({ userId, page: eventsPage });
+  // const organizedEvents = await getEventsByUser({ userId, page: eventsPage });
 
   return (
     <>
@@ -56,14 +56,14 @@ const ProfilePage = async ({ searchParams }: SearchParamProps) => {
 
       <section className="wrapper my-8">
         <Collection
-          data={events?.data}
+          data={locations?.data}
           emptyTitle="No destinations have been added yet"
           emptyStateSubtext="No worries - you can always add more later"
-          collectionType="My_Tickets"
+          collectionType="My_Destinations"
           limit={3}
           page={ordersPage}
           urlParamName="ordersPage"
-          totalPages={events?.totalPages}
+          // totalPages={events?.totalPages}
         />
       </section>
 
@@ -79,14 +79,14 @@ const ProfilePage = async ({ searchParams }: SearchParamProps) => {
 
       <section className="wrapper my-8">
         <Collection
-          data={organizedEvents?.data}
+          data={events?.data}
           emptyTitle="Nothing Is Here Yet"
           emptyStateSubtext="Search your dream vacation now"
-          collectionType="Events_Organized"
+          collectionType="Last_Search"
           limit={3}
           page={eventsPage}
           urlParamName="eventsPage"
-          totalPages={organizedEvents?.totalPages}
+          // totalPages={organizedEvents?.totalPages}
         />
       </section>
     </>

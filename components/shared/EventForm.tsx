@@ -15,7 +15,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { eventFormSchema } from "@/lib/validator";
 import * as z from "zod";
-import { eventDefaultValues } from "@/constants";
+import { OptionKeys, eventDefaultValues } from "@/constants";
 import Dropdown from "./Dropdown";
 import { Textarea } from "@/components/ui/textarea";
 import { FileUploader } from "./FileUploader";
@@ -53,8 +53,7 @@ const EventForm = ({ userId, type, event, eventId }: EventFormProps) => {
     loadQuestionnaire();
   }, []);
 
-  const optionKeys = [ "surfingLevel", "budget", "waterTemp"] as const;
-  type OptionKeys = typeof optionKeys[number];
+
   const initialValues = event && type === "Update" ? {...event } : eventDefaultValues;
   const router = useRouter();
 

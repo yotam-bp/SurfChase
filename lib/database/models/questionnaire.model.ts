@@ -1,12 +1,14 @@
 import mongoose, { Schema, Document } from 'mongoose';
 
 export interface IOption {
+  _id: string;
   key: string;
   label: string;
   select: string[];
 }
 
 export interface IQuestionnaire extends Document {
+  _id: string;
   options: IOption[];
 }
 

@@ -2,9 +2,10 @@ import mongoose, { Schema, Document, Model } from 'mongoose';
 
 // Interface for Season
 export interface ISeason extends Document {
-  type: string; // High or Low season
-  crowd: string; // Low, Medium, High
-  surfingLevel: string[]; // ['Beginner', 'Intermediate', 'Advanced']
+  _id: string;
+  type: string; 
+  crowd: string; 
+  surfingLevel: string[]; 
 }
 
 // Check if the model is already defined
