@@ -22,6 +22,7 @@ const ExplorePage = async ({ searchParams }: SearchParamProps) => {
   const page = Number(searchParams?.page) || 1;
   const searchText = (searchParams?.query as string) || "";
   const category = (searchParams?.category as string) || "";
+  
   const locations = await getAllLocations({
     query: searchText,
     page,

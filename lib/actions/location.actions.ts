@@ -4,11 +4,14 @@ import Season from "../database/models/season.model";
 import Spot from "../database/models/spot.model";
 import { handleError } from "../utils";
 import Location from "../database/models/locations.model";
+import MonthlyTemperature from "../database/models/monthlyTemperature.model";
 
 const populateLocation = (query: any) => {
         return query
-          // .populate({ path: 'season', model: Season, select: '_id type crowd surfingLevel months ' })
+          .populate({ path: 'seasons', model: Season, select: '_id type crowd surfingLevel months ' })
           .populate({ path: 'spots', model: Spot, select: '_id name' })
+          .populate({ path: 'monthlyTemperatures', model: MonthlyTemperature, select: '_id entries' })
+
       }
 
       export async function getLocationIdById(locationId: string) {

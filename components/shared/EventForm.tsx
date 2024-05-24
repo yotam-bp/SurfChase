@@ -73,7 +73,7 @@ const EventForm = ({ userId, type, event, eventId }: EventFormProps) => {
 
         if (newEvent) {
           form.reset();
-          router.push(`/explore`);
+          router.push(`/explore/${values}`);
         }
       } catch (error) {
         console.log(error);

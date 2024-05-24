@@ -87,6 +87,17 @@ export function removeKeysFromQuery({ params, keysToRemove }: RemoveUrlQueryPara
   )
 }
 
+export const getCurrentMonth = (): string => {
+  const months: string[] = [
+    "January", "February", "March", "April", "May", "June",
+    "July", "August", "September", "October", "November", "December"
+  ];
+
+  return months[new Date().getMonth()];
+}
+
+// Example usage:
+
 export function keysToStrings<T extends object>(obj: T): (keyof T)[] {
   return Object.keys(obj) as (keyof T)[];
 }

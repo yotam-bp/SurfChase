@@ -1,3 +1,5 @@
+import { IEvent } from "@/lib/database/models/event.model"
+
 // ====== USER PARAMS
 export type CreateUserParams = {
         clerkId: string
