@@ -52,7 +52,7 @@ const ExplorePage = async ({ searchParams }: SearchParamProps) => {
           limit={3}
           page={ordersPage}
           urlParamName="ordersPage"
-          // totalPages={events?.totalPages}
+          totalPages={locations?.totalPages}
         />
       </section>
     </>

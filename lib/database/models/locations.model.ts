@@ -22,7 +22,7 @@ const LocationSchema: Schema = new Schema({
   country: { type: String, required: true },
   region: { type: String, required: true },
   spots: [{ type: Schema.Types.ObjectId, ref: 'Spot', required: true }],
-  budget: { type: String, required: true },
+  budget: { type: String, required: true, enum: ['Low', 'Medium', 'High'] },
   seasons: [{ type: Schema.Types.ObjectId, ref: 'Season', required: true }],
   monthlyTemperatures: { type: Schema.Types.ObjectId, ref: 'MonthlyTemperature', required: true },
   imageUrl: { type: String, required: true },

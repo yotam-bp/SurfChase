@@ -2,6 +2,7 @@ import Spot from "@/lib/database/models/spot.model";
 import MonthlyTemperature from "@/lib/database/models/monthlyTemperature.model";
 import Location from "@/lib/database/models/locations.model";
 import Season from "@/lib/database/models/season.model";
+import mongoose from 'mongoose';
 
 const createLocation = async () => {
   // Create spot documents
@@ -88,6 +89,30 @@ const createLocation = async () => {
 const run = async () => {
   await createLocation();
 };
-export default run
+// export default run
 
 // run().catch((err) => console.error(err));
+
+
+async function deleteAllDataExceptUsers() {
+  const db = mongoose.connection.db;
+
+  try {
+    // Get all collections in the database
+    const collections = await db.listCollections().toArray();
+
+    // Iterate over collections and drop each one except for 'users'
+    for (const collection of collections) {
+      if (collection.name !== 'users') {
+        await db.dropCollection(collection.name);
+        console.log(`Dropped collection: ${collection.name}`);
+      }
+    }
+
+    console.log('All collections except users have been dropped.');
+  } catch (error) {
+    console.error('Error dropping collections:', error);
+  }
+}
+
+export default deleteAllDataExceptUsers;
