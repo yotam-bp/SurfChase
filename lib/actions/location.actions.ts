@@ -34,29 +34,34 @@ export async function getLocationIdById(locationId: string) {
     handleError(error);
   }
 }
-export async function getAllLocations({
-  query,
-  limit = 6,
-  page,
-}: getAllLocationsParams) {
-  try {
-    await connectToDatabase();
 
-    const conditions = { };
-    const skipAmount = (Number(page) - 1) * limit;
-    const locationsQuery = Location.find(conditions)
-      .sort({ createdAt: "desc" })
-      .skip(skipAmount)
-      .limit(limit);
+  export async function getAllLocations({
+    query
+  }: getAllLocationsParams) {
+    try {
+      await connectToDatabase();
+      const { surfingLevel, budget, page, limit } = query;
 
-    const locations = await populateLocation(locationsQuery).exec();
-    const locationsCount = await Location.countDocuments(conditions);
-
-    return {
-      data: JSON.parse(JSON.stringify(locations)),
-      totalPages: Math.ceil(locationsCount / limit),
-    };
-  } catch (error) {
-    handleError(error);
+      const seasonIds = surfingLevel ? await Season.distinct('_id', { surfingLevel }) : [];
+      const budgetConditions = budget ? { budget } : {};
+      const surfingLevelConditions = surfingLevel ? { seasons: { $in: seasonIds } } : {};
+      const conditions = { ...budgetConditions, ...surfingLevelConditions };
+  
+      const skipAmount = (Number(page) - 1) * limit;
+      const locationsQuery = Location.find(conditions)
+        .sort({ createdAt: 'desc' })
+        .skip(skipAmount)
+        .limit(limit);
+  
+      const locations = await populateLocation(locationsQuery).exec();
+      const locationsCount = await Location.countDocuments(conditions);
+  
+      return {
+        data: JSON.parse(JSON.stringify(locations)),
+        totalPages: Math.ceil(locationsCount / limit),
+      };
+    } catch (error) {
+      console.error(error);
+      throw new Error('Failed to fetch locations');
+    }
   }
-}

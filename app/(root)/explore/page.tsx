@@ -11,24 +11,32 @@ import { auth } from "@clerk/nextjs";
 import Link from "next/link";
 import React from "react";
 
-const ExplorePage = async ({ searchParams }: SearchParamProps) => {
+const ExplorePage = async ({ searchParams }:SearchParamProps) => {
   const { sessionClaims } = auth();
   const userId = sessionClaims?.userId as string;
 
+  console.log(searchParams)
   const ordersPage = Number(searchParams?.ordersPage) || 1;
   const eventsPage = Number(searchParams?.eventsPage) || 1;
 
   //   const orders = await getOrdersByUser({ userId, page: ordersPage})
-  const page = Number(searchParams?.page) || 1;
-  const searchText = (searchParams?.query as string) || "";
-  const category = (searchParams?.category as string) || "";
   
-  const locations = await getAllLocations({
-    query: searchText,
-    page,
-    limit: 6,
-  });
+  const surfingLevel = searchParams?.surfingLevel as string || "";
+  const budget = searchParams?.budget as string || "";
+  const waterTemp = searchParams?.waterTemp as string || "";
+  const monthToTravel = searchParams?.monthToTravel as string || "";
 
+  const query = {
+    surfingLevel: surfingLevel,
+    budget:budget,
+    waterTemp: waterTemp,
+    monthToTravel:monthToTravel,
+    page: eventsPage | ordersPage,
+    limit: 6,
+  };
+  const locations = await getAllLocations({
+    query
+  });
   return (
     <>
       {/* My Tickets */}

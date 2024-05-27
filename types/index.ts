@@ -102,9 +102,15 @@ export type CreateUserParams = {
 
       // ====== LOCATION PARAMS
       export type getAllLocationsParams = {
-        query: string
-        limit: number
-        page: number
+        query: {
+          surfingLevel: string,
+          budget:string,
+          waterTemp: string,
+          monthToTravel: string,
+          page: number,
+          limit: number,
+        
+        }
       }
       // ====== CATEGORY PARAMS
       export type CreateCategoryParams = {

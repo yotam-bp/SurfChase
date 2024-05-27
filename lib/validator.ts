@@ -11,6 +11,7 @@ export const eventFormSchema = z.object({
   surfingLevel: z.string(),
   budget: z.string(),
   waterTemp: z.string(),
+  monthToTravel: z.string(),
   // price: z.string(),
   // isFree: z.boolean(),
   // url: z.string().url()

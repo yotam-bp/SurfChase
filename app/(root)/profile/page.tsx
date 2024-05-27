@@ -30,11 +30,11 @@ const ProfilePage = async ({ searchParams }: SearchParamProps) => {
     limit: 6,
   });
 
-  const locations = await getAllLocations({
-    query: searchText,
-    page,
-    limit: 6,
-  });
+  // const locations = await getAllLocations({
+  //   query: searchText,
+  //   page,
+  //   limit: 6,
+  // });
 
   // console.log(locations);
   
@@ -54,7 +54,7 @@ const ProfilePage = async ({ searchParams }: SearchParamProps) => {
         </div>
       </section>
 
-      <section className="wrapper my-8">
+      {/* <section className="wrapper my-8">
         <Collection
           data={locations?.data}
           emptyTitle="No destinations have been added yet"
@@ -65,7 +65,7 @@ const ProfilePage = async ({ searchParams }: SearchParamProps) => {
           urlParamName="ordersPage"
           totalPages={locations?.totalPages}
         />
-      </section>
+      </section> */}
 
       {/* Events Organized */}
       <section className="bg-primary-50 bg-dotted-pattern bg-cover bg-center py-5 md:py-10">

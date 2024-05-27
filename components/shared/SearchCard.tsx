@@ -3,7 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 import { DeleteConfirmation } from "./DeleteConfirmation";
-import { BUDGET_LABEL, SURFING_LEVEL_LABEL, WATER_TEMP_LABEL } from "@/constants";
+import { BUDGET_LABEL, MONTH_LABEL, SURFING_LEVEL_LABEL, WATER_TEMP_LABEL } from "@/constants";
 
 type CardProps = {
   event: IEvent;
@@ -14,6 +14,7 @@ const SearchCard = ({ event }: CardProps) => {
     { label: SURFING_LEVEL_LABEL, value: event.surfingLevel },
     { label: BUDGET_LABEL, value: event.budget },
     { label: WATER_TEMP_LABEL, value: event.waterTemp },
+    { label: MONTH_LABEL, value: event.monthToTravel },
   ];
 
   return (

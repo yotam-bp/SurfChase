@@ -16,6 +16,7 @@ export interface IEvent extends Document {
   surfingLevel: string;
   budget: string;
   waterTemp: string;
+  monthToTravel:string;
   category: { _id: string, name: string }
   organizer: IUser
 }
@@ -36,6 +37,7 @@ const EventSchema = new Schema({
   waterTemp: { type: String, required: true },
   category: { type: Schema.Types.ObjectId, ref: 'Category' },
   organizer: { type: Schema.Types.ObjectId, ref: 'User' },
+  monthToTravel:{ type: String, required: true },
 })
 
 const Event = models.Event || model('Event', EventSchema);

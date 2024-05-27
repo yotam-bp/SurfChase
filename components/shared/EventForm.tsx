@@ -6,10 +6,8 @@ import { Button } from "@/components/ui/button";
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
-  FormLabel,
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
@@ -17,15 +15,8 @@ import { eventFormSchema } from "@/lib/validator";
 import * as z from "zod";
 import { OptionKeys, eventDefaultValues } from "@/constants";
 import Dropdown from "./Dropdown";
-import { Textarea } from "@/components/ui/textarea";
-import { FileUploader } from "./FileUploader";
 import { useEffect, useState } from "react";
-import Image from "next/image";
-import DatePicker from "react-datepicker";
-import { useUploadThing } from "@/lib/uploadthing";
-import "react-datepicker/dist/react-datepicker.css";
-import { Checkbox } from "../ui/checkbox";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { createEvent, updateEvent } from "@/lib/actions/event.actions";
 import { IEvent } from "@/lib/database/models/event.model";
 import { IQuestionnaire } from "@/lib/database/models/questionnaire.model";
@@ -41,26 +32,37 @@ type EventFormProps = {
 
 const EventForm = ({ userId, type, event, eventId }: EventFormProps) => {
   const [questionnaire, setQuestionnaire] = useState<IQuestionnaire[]>([]);
-  const [selectedCategory, setSelectedCategory] = useState<string>("");
 
   useEffect(() => {
     const loadQuestionnaire = async () => {
       const questionnaire = await getQuestionnaire();
-
-      questionnaire && setQuestionnaire(questionnaire as IQuestionnaire[]);
+      if (questionnaire) {
+        setQuestionnaire(questionnaire as IQuestionnaire[]);
+      }
     };
 
     loadQuestionnaire();
   }, []);
 
-
-  const initialValues = event && type === "Update" ? {...event } : eventDefaultValues;
+  const searchParams = useSearchParams();
   const router = useRouter();
 
   const form = useForm<z.infer<typeof eventFormSchema>>({
     resolver: zodResolver(eventFormSchema),
-    defaultValues: initialValues,
+    defaultValues:
+      event && type === "Update" ? { ...event } : eventDefaultValues,
   });
+
+  const passQueryString = (values: any) => {
+    const { surfingLevel, budget, waterTemp, monthToTravel } = values;
+    const queryString = new URLSearchParams({
+      surfingLevel: surfingLevel || "",
+      budget: budget || "",
+      waterTemp: waterTemp || "",
+      monthToTravel: monthToTravel || "",
+    }).toString();
+    router.push(`/explore?${queryString}`, { scroll: false });
+  };
 
   async function onSubmit(values: z.infer<typeof eventFormSchema>) {
     if (type === "Create") {
@@ -101,6 +103,8 @@ const EventForm = ({ userId, type, event, eventId }: EventFormProps) => {
         console.log(error);
       }
     }
+
+    passQueryString(values);
   }
 
   return (
@@ -126,13 +130,16 @@ const EventForm = ({ userId, type, event, eventId }: EventFormProps) => {
               </FormItem>
             )}
           />
-           <FormField
+          <FormField
             control={form.control}
             name="categoryId"
             render={({ field }) => (
               <FormItem className="w-full">
                 <FormControl>
-                  <Dropdown onChangeHandler={field.onChange} value={field.value} />
+                  <Dropdown
+                    onChangeHandler={field.onChange}
+                    value={field.value}
+                  />
                 </FormControl>
                 <FormMessage />
               </FormItem>
