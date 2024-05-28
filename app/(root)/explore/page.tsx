@@ -15,17 +15,16 @@ const ExplorePage = async ({ searchParams }:SearchParamProps) => {
   const { sessionClaims } = auth();
   const userId = sessionClaims?.userId as string;
 
-  console.log(searchParams)
   const ordersPage = Number(searchParams?.ordersPage) || 1;
   const eventsPage = Number(searchParams?.eventsPage) || 1;
-
+  
   //   const orders = await getOrdersByUser({ userId, page: ordersPage})
   
   const surfingLevel = searchParams?.surfingLevel as string || "";
   const budget = searchParams?.budget as string || "";
   const waterTemp = searchParams?.waterTemp as string || "";
   const monthToTravel = searchParams?.monthToTravel as string || "";
-
+  
   const query = {
     surfingLevel: surfingLevel,
     budget:budget,
@@ -37,6 +36,7 @@ const ExplorePage = async ({ searchParams }:SearchParamProps) => {
   const locations = await getAllLocations({
     query
   });
+  
   return (
     <>
       {/* My Tickets */}

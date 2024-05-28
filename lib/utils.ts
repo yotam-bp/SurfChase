@@ -96,6 +96,21 @@ export const getCurrentMonth = (): string => {
   return months[new Date().getMonth()];
 }
 
+export const getTemperatureRange = (waterTemp: string): { min: number, max: number } | null => {  
+  switch (waterTemp) {
+    case 'Cold':
+      return { min: -Infinity, max: 20 };
+    case 'Mid':
+      return { min: 20, max: 26 };
+    case 'Hot':
+      return { min: 26, max: Infinity };
+    default:
+      return null;
+  }
+};
+
+
+
 // Example usage:
 
 export function keysToStrings<T extends object>(obj: T): (keyof T)[] {

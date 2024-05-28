@@ -2,7 +2,7 @@ import { getAllLocationsParams } from "@/types";
 import { connectToDatabase } from "../database";
 import Season from "../database/models/season.model";
 import Spot from "../database/models/spot.model";
-import { handleError } from "../utils";
+import { getTemperatureRange, handleError } from "../utils";
 import Location from "../database/models/locations.model";
 import MonthlyTemperature from "../database/models/monthlyTemperature.model";
 
@@ -35,33 +35,63 @@ export async function getLocationIdById(locationId: string) {
   }
 }
 
-  export async function getAllLocations({
-    query
-  }: getAllLocationsParams) {
-    try {
-      await connectToDatabase();
-      const { surfingLevel, budget, page, limit } = query;
+export async function getAllLocations({ query }: getAllLocationsParams) {
+  try {
+    await connectToDatabase();
+    const { surfingLevel, budget, waterTemp, monthToTravel, page, limit } = query;
 
-      const seasonIds = surfingLevel ? await Season.distinct('_id', { surfingLevel }) : [];
-      const budgetConditions = budget ? { budget } : {};
-      const surfingLevelConditions = surfingLevel ? { seasons: { $in: seasonIds } } : {};
-      const conditions = { ...budgetConditions, ...surfingLevelConditions };
-  
-      const skipAmount = (Number(page) - 1) * limit;
-      const locationsQuery = Location.find(conditions)
-        .sort({ createdAt: 'desc' })
-        .skip(skipAmount)
-        .limit(limit);
-  
-      const locations = await populateLocation(locationsQuery).exec();
-      const locationsCount = await Location.countDocuments(conditions);
-  
-      return {
-        data: JSON.parse(JSON.stringify(locations)),
-        totalPages: Math.ceil(locationsCount / limit),
-      };
-    } catch (error) {
-      console.error(error);
-      throw new Error('Failed to fetch locations');
+    // Budget condition
+    const budgetConditions = budget ? { budget } : {};
+
+    // Surfing level condition
+    let seasonConditions = {};
+    if (surfingLevel) {
+      const seasonIds = await Season.distinct('_id', { surfingLevel });
+      seasonConditions = { seasons: { $in: seasonIds } };
     }
+
+    // Monthly temperature condition
+    let temperatureConditions = {};
+    if (waterTemp && monthToTravel) {
+      const range = getTemperatureRange(waterTemp);
+      if (range) {
+        const { min, max } = range;
+        const monthlyTemperatureIds = await MonthlyTemperature.find({
+          'entries': {
+            $elemMatch: {
+              month: monthToTravel,
+              seaTemperature: { $gte: min, $lte: max }
+            }
+          }
+        }).distinct('_id');
+        temperatureConditions = { monthlyTemperatures: { $in: monthlyTemperatureIds } };
+      }
+    }
+
+    // Combine all conditions
+    const conditions = {
+      $and: [
+        budgetConditions,
+        seasonConditions,
+        temperatureConditions
+      ].filter(condition => Object.keys(condition).length > 0) // Filter out empty conditions
+    };
+
+    const skipAmount = (Number(page) - 1) * limit;
+    const locationsQuery = Location.find(conditions)
+      .sort({ createdAt: 'desc' })
+      .skip(skipAmount)
+      .limit(limit);
+
+    const locations = await populateLocation(locationsQuery).exec();
+    const locationsCount = await Location.countDocuments(conditions);
+    console.log(locationsCount);
+    
+    return {
+      data: JSON.parse(JSON.stringify(locations)),
+      totalPages: Math.ceil(locationsCount / limit)
+    };
+  } catch (error) {
+    handleError(error);
   }
+}
