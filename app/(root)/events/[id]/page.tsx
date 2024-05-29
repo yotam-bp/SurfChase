@@ -34,7 +34,6 @@ const EventDetails = async ({
       outsideTemp: monthData?.outsideTemperature
     };
   }
-  console.log(getTemperatures());
   
   return (
     <>

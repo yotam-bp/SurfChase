@@ -5,29 +5,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { ICategory } from "@/lib/database/models/category.model";
-import { startTransition, useEffect, useState } from "react";
-import {
-  AlertDialog,
-  AlertDialogAction,
-  AlertDialogCancel,
-  AlertDialogContent,
-  AlertDialogDescription,
-  AlertDialogFooter,
-  AlertDialogHeader,
-  AlertDialogTitle,
-  AlertDialogTrigger,
-} from "@/components/ui/alert-dialog";
-import { Input } from "../ui/input";
-import {
-  createCategory,
-  getAllCategories,
-} from "@/lib/actions/category.actions";
-import {
-  IOption,
-  IQuestionnaire,
-} from "@/lib/database/models/questionnaire.model";
-import { getQuestionnaire } from "@/lib/actions/questionnaire.actions";
+import { IOption } from "@/lib/database/models/questionnaire.model";
 
 type DropdownProps = {
   value?: string;

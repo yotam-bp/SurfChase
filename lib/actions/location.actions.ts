@@ -85,7 +85,6 @@ export async function getAllLocations({ query }: getAllLocationsParams) {
 
     const locations = await populateLocation(locationsQuery).exec();
     const locationsCount = await Location.countDocuments(conditions);
-    console.log(locationsCount);
     
     return {
       data: JSON.parse(JSON.stringify(locations)),
