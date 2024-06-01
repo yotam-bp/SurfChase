@@ -2,9 +2,8 @@ import Collection from "@/components/shared/Collection";
 import { Button } from "@/components/ui/button";
 import {
   getAllEventsByUser,
-  getEventsByUser,
 } from "@/lib/actions/event.actions";
-import { getAllLocations } from "@/lib/actions/location.actions";
+import { getAllFavorites } from "@/lib/actions/favorites.actions";
 // import { getOrdersByUser } from '@/lib/actions/order.actions'
 import { SearchParamProps } from "@/types";
 import { auth } from "@clerk/nextjs";
@@ -17,11 +16,11 @@ const ProfilePage = async ({ searchParams }: SearchParamProps) => {
 
   const ordersPage = Number(searchParams?.ordersPage) || 1;
   const eventsPage = Number(searchParams?.eventsPage) || 1;
-
-  //   const orders = await getOrdersByUser({ userId, page: ordersPage})
   const page = Number(searchParams?.page) || 1;
   const searchText = (searchParams?.query as string) || "";
   const category = (searchParams?.category as string) || "";
+  //   const orders = await getOrdersByUser({ userId, page: ordersPage})
+
   const events = await getAllEventsByUser({
     userId,
     query: searchText,
@@ -29,16 +28,8 @@ const ProfilePage = async ({ searchParams }: SearchParamProps) => {
     page,
     limit: 6,
   });
-
-  // const locations = await getAllLocations({
-  //   query: searchText,
-  //   page,
-  //   limit: 6,
-  // });
-
-  // console.log(locations);
   
-
+  const favorites = await getAllFavorites(userId);
   //   const orderedEvents = orders?.data.map((order: IOrder) => order.event) || [];
   // const organizedEvents = await getEventsByUser({ userId, page: eventsPage });
 
@@ -54,18 +45,19 @@ const ProfilePage = async ({ searchParams }: SearchParamProps) => {
         </div>
       </section>
 
-      {/* <section className="wrapper my-8">
+      <section className="wrapper my-8">
         <Collection
-          data={locations?.data}
+          data={favorites} 
           emptyTitle="No destinations have been added yet"
           emptyStateSubtext="No worries - you can always add more later"
           collectionType="My_Destinations"
           limit={3}
           page={ordersPage}
           urlParamName="ordersPage"
-          totalPages={locations?.totalPages}
+          // totalPages={favorites?.totalPages}
+          userId={userId}
         />
-      </section> */}
+      </section> 
 
       {/* Events Organized */}
       <section className="bg-primary-50 bg-dotted-pattern bg-cover bg-center py-5 md:py-10">
@@ -87,6 +79,7 @@ const ProfilePage = async ({ searchParams }: SearchParamProps) => {
           page={eventsPage}
           urlParamName="eventsPage"
           // totalPages={organizedEvents?.totalPages}
+          userId={userId}
         />
       </section>
     </>

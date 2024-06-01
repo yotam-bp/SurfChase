@@ -1,14 +1,7 @@
 import Collection from "@/components/shared/Collection";
-import { Button } from "@/components/ui/button";
-import {
-  getAllEventsByUser,
-  getEventsByUser,
-} from "@/lib/actions/event.actions";
 import { getAllLocations } from "@/lib/actions/location.actions";
-// import { getOrdersByUser } from '@/lib/actions/order.actions'
 import { SearchParamProps } from "@/types";
 import { auth } from "@clerk/nextjs";
-import Link from "next/link";
 import React from "react";
 
 const ExplorePage = async ({ searchParams }:SearchParamProps) => {
@@ -61,6 +54,7 @@ const ExplorePage = async ({ searchParams }:SearchParamProps) => {
           page={ordersPage}
           urlParamName="ordersPage"
           totalPages={locations?.totalPages}
+          userId={userId}
         />
       </section>
     </>
