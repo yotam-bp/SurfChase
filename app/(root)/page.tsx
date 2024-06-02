@@ -9,20 +9,23 @@ import Image from 'next/image'
 import Link from 'next/link'
 
 export default async function Home({ searchParams }: SearchParamProps) {
+  const { sessionClaims } = auth();
+  const userId = sessionClaims?.userId as string;
   const page = Number(searchParams?.page) || 1;
   const searchText = (searchParams?.query as string) || '';
   const category = (searchParams?.category as string) || '';
-  const { sessionClaims } = auth();
-  const userId = sessionClaims?.userId as string;
-  
-  const events = await getAllEventsByUser({
-    query: searchText,
-    userId,
-    category,
-    page,
-    limit: 6
-  })
 
+  let events = null;
+
+  if (userId) {
+    events = await getAllEventsByUser({
+      query: searchText,
+      userId,
+      category,
+      page,
+      limit: 6
+    });
+  }
   return (
     <>
       <section className="bg-primary-50 bg-dotted-pattern bg-contain py-5 md:py-10">

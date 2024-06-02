@@ -101,6 +101,8 @@ export async function getAllEventsByUser({ query, limit = 6, page, category, use
   try {
     await connectToDatabase()
 
+    if(!userId) throw new Error('Unauthorized')
+
     const titleCondition = query ? { title: { $regex: query, $options: 'i' } } : {}
     const categoryCondition = category ? await getCategoryByName(category) : null
     const userCondition = userId ? { organizer: userId } : {};
