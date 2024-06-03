@@ -2,7 +2,7 @@ import Collection from "@/components/shared/Collection";
 import run from "@/lib/actions/createLocation.actions";
 import {
   getEventById,
-  getRelatedEventsByCategory,
+  // getRelatedEventsByCategory,
 } from "@/lib/actions/event.actions";
 import { getLocationIdById } from "@/lib/actions/location.actions";
 import { ILocation } from "@/lib/database/models/locations.model";

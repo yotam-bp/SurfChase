@@ -21,13 +21,13 @@ export type CreateUserParams = {
       export type CreateEventParams = {
         userId: string
         event: {
-          title: string
+          // title: string
           // description: string
           // location: string
           // imageUrl: string
           // startDateTime: Date
           // endDateTime: Date
-          categoryId: string
+          // categoryId: string
           // price: string
           // isFree: boolean
           // url: string
@@ -39,13 +39,13 @@ export type CreateUserParams = {
         userId: string
         event: {
           _id: string
-          title: string
+          // title: string
           // imageUrl: string
           // description: string
           // location: string
           // startDateTime: Date
           // endDateTime: Date
-          categoryId: string
+          // categoryId: string
           // price: string
           // isFree: boolean
           // url: string
@@ -59,7 +59,7 @@ export type CreateUserParams = {
       }
       export type GetAllEventsParams = {
         query: string
-        category: string
+        // category: string
         userId: string
         limit: number
         page: number
@@ -80,7 +80,7 @@ export type CreateUserParams = {
       
       export type Event = {
         _id: string
-        title: string
+        // title: string
         // description: string
         // price: string
         // isFree: boolean
@@ -94,10 +94,10 @@ export type CreateUserParams = {
           firstName: string
           lastName: string
         }
-        category: {
-          _id: string
-          name: string
-        }
+        // category: {
+        //   _id: string
+        //   name: string
+        // }
       }
 
       // ====== LOCATION PARAMS

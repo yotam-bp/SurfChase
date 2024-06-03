@@ -3,7 +3,7 @@ import { IUser } from "./user.model";
 
 export interface IEvent extends Document {
   _id: string;
-  title: string;
+  // title: string;
   // description?: string;
   // location?: string;
   // createdAt: Date;
@@ -17,12 +17,12 @@ export interface IEvent extends Document {
   budget: string;
   waterTemp: string;
   monthToTravel:string;
-  category: { _id: string, name: string }
+  // category: { _id: string, name: string }
   organizer: IUser
 }
 
 const EventSchema = new Schema({
-  title: { type: String, required: true },
+  // title: { type: String, required: true },
   // description: { type: String },
   // location: { type: String },
   // createdAt: { type: Date, default: Date.now },
@@ -35,7 +35,7 @@ const EventSchema = new Schema({
   surfingLevel: { type: String, required: true },
   budget: { type: String, required: true },
   waterTemp: { type: String, required: true },
-  category: { type: Schema.Types.ObjectId, ref: 'Category' },
+  // category: { type: Schema.Types.ObjectId, ref: 'Category' },
   organizer: { type: Schema.Types.ObjectId, ref: 'User' },
   monthToTravel:{ type: String, required: true },
 })

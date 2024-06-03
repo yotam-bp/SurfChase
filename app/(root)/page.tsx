@@ -1,4 +1,4 @@
-import CategoryFilter from "@/components/shared/CategoryFilter";
+// import CategoryFilter from "@/components/shared/CategoryFilter";
 import Collection from "@/components/shared/Collection";
 import Search from "@/components/shared/Search";
 import { Button } from "@/components/ui/button";
@@ -14,7 +14,7 @@ export default async function Home({ searchParams }: SearchParamProps) {
   const userId = sessionClaims?.userId as string;
   const page = Number(searchParams?.page) || 1;
   const searchText = (searchParams?.query as string) || "";
-  const category = (searchParams?.category as string) || "";
+  // const category = (searchParams?.category as string) || "";
 
   const hottestLocations = await getHottestLocations(6)
   
@@ -23,12 +23,12 @@ export default async function Home({ searchParams }: SearchParamProps) {
     events = await getAllEventsByUser({
       query: searchText,
       userId,
-      category,
+      // category,
       page,
       limit: 6,
     });
   }
-  console.log(hottestLocations);
+  
   return (
     <>
       <section className="bg-primary-50 bg-dotted-pattern bg-contain py-5 md:py-10">
@@ -82,11 +82,11 @@ export default async function Home({ searchParams }: SearchParamProps) {
           id="events"
           className="wrapper my-8 flex flex-col gap-8 md:gap-12"
         >
-          <h2 className="h2-bold">Last Search </h2>
+          <h2 className="h2-bold">Last Search</h2>
 
           <div className="flex w-full flex-col gap-5 md:flex-row">
-            <Search />
-            <CategoryFilter />
+            {/* <Search /> */}
+            {/* <CategoryFilter /> */}
           </div>
 
           <Collection

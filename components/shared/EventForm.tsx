@@ -14,7 +14,7 @@ import { Input } from "@/components/ui/input";
 import { eventFormSchema } from "@/lib/validator";
 import * as z from "zod";
 import { OptionKeys, eventDefaultValues } from "@/constants";
-import Dropdown from "./Dropdown";
+// import Dropdown from "./Dropdown";
 import { useEffect, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { createEvent, updateEvent } from "@/lib/actions/event.actions";
@@ -114,7 +114,7 @@ const EventForm = ({ userId, type, event, eventId }: EventFormProps) => {
         className="flex flex-col gap-5"
       >
         <div className="flex flex-col gap-5 md:flex-row">
-          <FormField
+          {/* <FormField
             control={form.control}
             name="title"
             render={({ field }) => (
@@ -144,7 +144,7 @@ const EventForm = ({ userId, type, event, eventId }: EventFormProps) => {
                 <FormMessage />
               </FormItem>
             )}
-          />
+          /> */}
           {questionnaire[0]?.options.map((option) => (
             <FormField
               key={option.key}

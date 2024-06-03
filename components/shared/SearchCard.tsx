@@ -23,8 +23,8 @@ const SearchCard = ({ event }: CardProps) => {
   ];
 
   return (
-    <div className="group relative flex min-h-[180px] w-full max-w-[400px] flex-col overflow-hidden rounded-xl bg-white shadow-md transition-all hover:shadow-lg md:min-h-[438px]">
-      <div className="absolute right-2 top-2 flex flex-col gap-4 rounded-xl bg-gray-50 p-3 shadow-sm transition-all">
+    <div className="group relative flex w-full max-w-[400px] flex-col overflow-hidden rounded-xl bg-white shadow-md transition-all hover:shadow-lg">
+      <div className="absolute right-2 top-2 flex flex-row gap-4 rounded-xl bg-gray-50 p-2.5 shadow-sm transition-all">
         <Link href={`/events/${event._id}/update`}>
           <Image
             src="/assets/icons/edit.svg"
@@ -35,9 +35,9 @@ const SearchCard = ({ event }: CardProps) => {
         </Link>
         <DeleteConfirmation eventId={event._id} />
       </div>
-      <div className="flex min-h-[230px] flex-col gap-3 p-5 md:gap-4">
-        <h3 className="text-xl font-semibold">{event.title}</h3>
-        <p className="text-gray-500">{event.category.name}</p>
+      <div className="flex flex-col gap-3 pt-10 pr-5 pb-5 pl-5">
+        {/* <h3 className="text-xl font-semibold">{event.title}</h3>
+        <p className="text-gray-500">{event.category.name}</p> */}
         <div className="flex flex-col gap-1 mt-3">
           {eventDetails.map((detail, index) => (
             <div key={index} className="flex justify-between text-sm">

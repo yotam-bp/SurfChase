@@ -20,7 +20,6 @@ const LocationCard = ({ location,userId }: CardProps) => {
       if (userId) {
         const favorites = await getAllFavorites(userId);
         const isFav = favorites.some((fav: any) => fav.location._id === location._id);
-        console.log(isFav);
         setIsFavorite(isFav);
       }
     };

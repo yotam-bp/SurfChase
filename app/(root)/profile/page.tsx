@@ -18,13 +18,13 @@ const ProfilePage = async ({ searchParams }: SearchParamProps) => {
   const eventsPage = Number(searchParams?.eventsPage) || 1;
   const page = Number(searchParams?.page) || 1;
   const searchText = (searchParams?.query as string) || "";
-  const category = (searchParams?.category as string) || "";
+  // const category = (searchParams?.category as string) || "";
   //   const orders = await getOrdersByUser({ userId, page: ordersPage})
 
   const events = await getAllEventsByUser({
     userId,
     query: searchText,
-    category,
+    // category,
     page,
     limit: 6,
   });

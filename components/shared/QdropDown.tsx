@@ -4,8 +4,10 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue,
+  SelectLabel,
 } from "@/components/ui/select";
 import { IOption } from "@/lib/database/models/questionnaire.model";
+import { SelectGroup } from "@radix-ui/react-select";
 
 type DropdownProps = {
   value?: string;
@@ -20,15 +22,18 @@ const Qdropdown = ({ value, onChangeHandler, options }: DropdownProps) => {
         <SelectValue placeholder={options.label} />
       </SelectTrigger>
       <SelectContent>
-        {options.select.map((item) => (
-          <SelectItem
-            key={item}
-            value={item}
-            className="select-item p-regular-14"
-          >
-            {item}
-          </SelectItem>
-        ))}
+        <SelectGroup>
+          <SelectLabel>{options.label}</SelectLabel>
+          {options.select.map((item) => (
+            <SelectItem
+              key={item}
+              value={item}
+              className="select-item p-regular-14"
+            >
+              {item}
+            </SelectItem>
+          ))}
+        </SelectGroup>
       </SelectContent>
     </Select>
   );

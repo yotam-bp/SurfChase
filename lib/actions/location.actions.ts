@@ -39,7 +39,7 @@ export async function getLocationIdById(locationId: string) {
 export async function getHottestLocations(limit: number) {
   try {
     await connectToDatabase();
-    const currentMonth = getCurrentMonth;
+    const currentMonth = getCurrentMonth();
 
     // Find all seasons where the current month is in the high season
     const highSeasons = await Season.find({ type: 'High', months: currentMonth }).exec();

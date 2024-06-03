@@ -27,7 +27,7 @@ type CollectionProps = {
 };
 
 const isEvent = (item: ILocation | IEvent | IFavorite): item is IEvent => {
-  return (item as IEvent).title !== undefined;
+  return (item as IEvent).organizer !== undefined;
 };
 
 const isLocation = (item: ILocation | IEvent | IFavorite): item is ILocation => {
@@ -63,7 +63,7 @@ const Collection = ({
 
                   return (
                     <CarouselItem key={isFavorite(item) ? item.location._id : item._id} className="pl-1 md:basis-1/2 lg:basis-1/3">
-                      <div className="p-1 flex justify-center">
+                      <div className="p-2 flex justify-center">
                         {isEvent(item) && collectionType === 'Last_Search' && (
                           <SearchCard event={item} />
                         )}
@@ -75,8 +75,9 @@ const Collection = ({
                   );
                 })}
               </CarouselContent>
-              <CarouselPrevious className="hidden md:hidden" />
-              <CarouselNext className="hidden md:hidden" />
+              {/* find a way to remove arrows on phone */}
+              <CarouselPrevious className="hidden md:flex" />
+              <CarouselNext className="hidden md:flex" />
             </Carousel>
           ) : (
             <ul className="grid w-full grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3 xl:gap-10">
