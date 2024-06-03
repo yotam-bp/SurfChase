@@ -14,16 +14,16 @@ type CardProps = {
 const LocationCard = ({ location,userId }: CardProps) => {
   const [isFavorite, setIsFavorite] = useState(false); 
   
-  console.log(location);
   useEffect(() => { 
+    
     const checkFavorite = async () => {
       if (userId) {
         const favorites = await getAllFavorites(userId);
         const isFav = favorites.some((fav: any) => fav.location._id === location._id);
+        console.log(isFav);
         setIsFavorite(isFav);
       }
     };
-
     checkFavorite();
   }, [userId, location._id]);
 

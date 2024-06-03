@@ -2,7 +2,7 @@ import { getAllLocationsParams } from "@/types";
 import { connectToDatabase } from "../database";
 import Season from "../database/models/season.model";
 import Spot from "../database/models/spot.model";
-import { getTemperatureRange, handleError } from "../utils";
+import { getCurrentMonth, getTemperatureRange, handleError } from "../utils";
 import Location from "../database/models/locations.model";
 import MonthlyTemperature from "../database/models/monthlyTemperature.model";
 
@@ -30,6 +30,31 @@ export async function getLocationIdById(locationId: string) {
     if (!location) throw new Error("Location not found");
 
     return JSON.parse(JSON.stringify(location));
+  } catch (error) {
+    handleError(error);
+  }
+}
+
+
+export async function getHottestLocations(limit: number) {
+  try {
+    await connectToDatabase();
+    const currentMonth = getCurrentMonth;
+
+    // Find all seasons where the current month is in the high season
+    const highSeasons = await Season.find({ type: 'High', months: currentMonth }).exec();
+    const highSeasonIds = highSeasons.map(season => season._id);
+
+    // Find locations where their seasons include the high seasons found above
+    const locationsQuery = Location.find({ seasons: { $in: highSeasonIds } })
+      .sort({ createdAt: 'desc' })
+      .limit(limit);
+
+    const locations = await populateLocation(locationsQuery).exec();
+    
+    return {
+      data: JSON.parse(JSON.stringify(locations)),
+    };
   } catch (error) {
     handleError(error);
   }

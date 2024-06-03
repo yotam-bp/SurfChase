@@ -121,7 +121,7 @@ const EventForm = ({ userId, type, event, eventId }: EventFormProps) => {
               <FormItem className="w-full">
                 <FormControl>
                   <Input
-                    placeholder="Event title"
+                    placeholder="Search title"
                     {...field}
                     className="input-field"
                   />
