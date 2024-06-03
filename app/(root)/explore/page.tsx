@@ -1,4 +1,5 @@
 import Collection from "@/components/shared/Collection";
+import EventForm from "@/components/shared/EventForm";
 import { getAllLocations } from "@/lib/actions/location.actions";
 import { SearchParamProps } from "@/types";
 import { auth } from "@clerk/nextjs";
@@ -42,6 +43,7 @@ const ExplorePage = async ({ searchParams }:SearchParamProps) => {
             <Link href="/#events">Explore More Events</Link>
           </Button> */}
         </div>
+        {/* <EventForm userId={userId} type="Update" /> */}
       </section>
 
       <section className="wrapper my-8">

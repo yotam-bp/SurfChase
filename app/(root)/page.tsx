@@ -1,5 +1,6 @@
 // import CategoryFilter from "@/components/shared/CategoryFilter";
 import Collection from "@/components/shared/Collection";
+import EventForm from "@/components/shared/EventForm";
 import Search from "@/components/shared/Search";
 import { Button } from "@/components/ui/button";
 import { getAllEventsByUser } from "@/lib/actions/event.actions";
@@ -16,8 +17,8 @@ export default async function Home({ searchParams }: SearchParamProps) {
   const searchText = (searchParams?.query as string) || "";
   // const category = (searchParams?.category as string) || "";
 
-  const hottestLocations = await getHottestLocations(6)
-  
+  const hottestLocations = await getHottestLocations(6);
+
   let events = null;
   if (userId) {
     events = await getAllEventsByUser({
@@ -28,7 +29,7 @@ export default async function Home({ searchParams }: SearchParamProps) {
       limit: 6,
     });
   }
-  
+
   return (
     <>
       <section className="bg-primary-50 bg-dotted-pattern bg-contain py-5 md:py-10">
@@ -42,7 +43,7 @@ export default async function Home({ searchParams }: SearchParamProps) {
               right vacation for you.
             </p>
             <Button size="lg" asChild className="button w-full sm:w-fit">
-              <Link href="/events/create">Explore Now</Link>
+              <Link href="#search">Explore Now</Link>
             </Button>
           </div>
 
@@ -56,27 +57,36 @@ export default async function Home({ searchParams }: SearchParamProps) {
         </div>
       </section>
       <section
-          id="events"
-          className="wrapper my-8 flex flex-col gap-8 md:gap-12"
-        >
-          <h2 className="h2-bold">Hottest Locations This Month</h2>
-{/* 
+        id="events"
+        className="wrapper my-8 flex flex-col gap-8 md:gap-12"
+      >
+        <h2 className="h2-bold">Hottest Locations This Month</h2>
+        {/* 
           <div className="flex w-full flex-col gap-5 md:flex-row">
             <Search />
             <CategoryFilter />
           </div> */}
 
-          <Collection
-            data={hottestLocations?.data}
-            emptyTitle="Nothing Is Here Yet"
-            emptyStateSubtext="Search your dream vacation now"
-            collectionType="My_Destinations"
-            limit={6}
-            page={page}
-            // totalPages={events?.totalPages}
-            userId={userId}
-          />
-        </section>
+        <Collection
+          data={hottestLocations?.data}
+          emptyTitle="Nothing Is Here Yet"
+          emptyStateSubtext="Search your dream vacation now"
+          collectionType="My_Destinations"
+          limit={6}
+          page={page}
+          // totalPages={events?.totalPages}
+          userId={userId}
+        />
+      </section>
+      <section className="bg-primary-50 bg-dotted-pattern bg-cover bg-center py-5 md:py-10" id="search">
+        <h3 className="wrapper h3-bold text-center sm:text-left">
+          Search vacation
+        </h3>
+      </section>
+
+      <div className="wrapper my-8">
+        <EventForm userId={userId} type="Create" />
+      </div>
       {events && (
         <section
           id="events"

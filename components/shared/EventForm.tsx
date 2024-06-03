@@ -113,7 +113,7 @@ const EventForm = ({ userId, type, event, eventId }: EventFormProps) => {
         onSubmit={form.handleSubmit(onSubmit)}
         className="flex flex-col gap-5"
       >
-        <div className="flex flex-col gap-5 md:flex-row">
+        <div className="flex flex-col gap-5 md:flex-col">
           {/* <FormField
             control={form.control}
             name="title"
@@ -164,16 +164,16 @@ const EventForm = ({ userId, type, event, eventId }: EventFormProps) => {
               )}
             />
           ))}
-        </div>
-
         <Button
           type="submit"
           size="lg"
           disabled={form.formState.isSubmitting}
           className="button col-span-2 w-full"
         >
-          {form.formState.isSubmitting ? "Submitting..." : `${type} Search `}
+
+          {form.formState.isSubmitting ? "Submitting..." : ` Search `}
         </Button>
+        </div>
       </form>
     </Form>
   );
