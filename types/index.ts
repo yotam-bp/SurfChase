@@ -31,6 +31,10 @@ export type CreateUserParams = {
           // price: string
           // isFree: boolean
           // url: string
+          surfingLevel: string;
+          budget: string;
+          waterTemp: string;
+          monthToTravel:string;
         }
         path: string
       }
@@ -49,6 +53,10 @@ export type CreateUserParams = {
           // price: string
           // isFree: boolean
           // url: string
+          surfingLevel: string;
+          budget: string;
+          waterTemp: string;
+          monthToTravel:string;
         }
         path: string
       }
@@ -89,6 +97,10 @@ export type CreateUserParams = {
         // startDateTime: Date
         // endDateTime: Date
         // url: string
+        surfingLevel: string;
+        budget: string;
+        waterTemp: string;
+        monthToTravel:string;
         organizer: {
           _id: string
           firstName: string

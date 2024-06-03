@@ -35,9 +35,9 @@ const EventSchema = new Schema({
   surfingLevel: { type: String, required: true },
   budget: { type: String, required: true },
   waterTemp: { type: String, required: true },
+  monthToTravel:{ type: String, required: true },
   // category: { type: Schema.Types.ObjectId, ref: 'Category' },
   organizer: { type: Schema.Types.ObjectId, ref: 'User' },
-  monthToTravel:{ type: String, required: true },
 })
 
 const Event = models.Event || model('Event', EventSchema);
