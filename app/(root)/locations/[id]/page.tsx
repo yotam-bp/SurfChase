@@ -30,7 +30,7 @@ const LocationDetails = async ({
     <>
       <section className="flex justify-center bg-primary-50 bg-dotted-pattern bg-contain">
         <div className="grid grid-cols-1 md:grid-cols-2 2xl:max-w-7xl">
-          <div className="relative w-full aspect-w-16 aspect-h-9 md:aspect-h-auto md:h-auto">
+          <div className="relative w-full h-64 md:h-auto">
             <Image
               src={location.imageUrl}
               alt="hero image"
