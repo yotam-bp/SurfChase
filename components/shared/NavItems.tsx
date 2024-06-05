@@ -5,7 +5,7 @@ import { usePathname } from 'next/navigation';
 import React from 'react';
 
 interface NavItemsProps {
-  onClose: () => void;
+  onClose?: () => void;
 }
 
 const NavItems: React.FC<NavItemsProps> = ({ onClose }) => {
