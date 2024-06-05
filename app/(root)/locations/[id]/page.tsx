@@ -30,17 +30,14 @@ const LocationDetails = async ({
     <>
       <section className="flex justify-center bg-primary-50 bg-dotted-pattern bg-contain">
         <div className="grid grid-cols-1 md:grid-cols-2 2xl:max-w-7xl">
-          <div className="relative w-full h-64 md:h-auto">
-            <Image
-              src={location.imageUrl}
-              alt="hero image"
-              layout="fill"
-              objectFit="cover"
-              objectPosition="center"
-              className="h-full w-full"
-              loading="lazy"
-            />
-          </div>
+          <Image
+            src={location.imageUrl}
+            alt="hero image"
+            width={1000}
+            height={1000}
+            className="h-full w-full object-cover object-center"
+            loading="lazy"
+          />
 
           <div className="flex w-full flex-col gap-8 p-5 md:p-10">
             <div className="flex flex-col gap-6">

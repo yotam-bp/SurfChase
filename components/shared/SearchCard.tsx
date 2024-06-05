@@ -25,7 +25,7 @@ const SearchCard = ({ event }: CardProps) => {
   return (
     <div className="group relative flex w-full max-w-[400px] flex-col overflow-hidden rounded-xl bg-white shadow-md transition-all hover:shadow-lg">
       <div className="absolute right-2 top-2 flex flex-row gap-4 rounded-xl bg-gray-50 p-2.5 shadow-sm transition-all">
-        <Link href={`/events/${event._id}/update`}>
+        <Link href={`/search/${event._id}/update`}>
           <Image
             src="/assets/icons/edit.svg"
             alt="edit"
