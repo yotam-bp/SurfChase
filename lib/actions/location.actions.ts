@@ -106,7 +106,7 @@ export async function getAllLocations({ query }: getAllLocationsParams) {
     const locationsQuery = Location.find(conditions)
       .sort({ createdAt: 'desc' })
       .skip(skipAmount)
-      .limit(limit);
+      // .limit(limit);
 
     const locations = await populateLocation(locationsQuery).exec();
     const locationsCount = await Location.countDocuments(conditions);

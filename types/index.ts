@@ -97,6 +97,8 @@ export type CreateUserParams = {
         // startDateTime: Date
         // endDateTime: Date
         // url: string
+        createdAt: Date;
+        updatedAt: Date;
         surfingLevel: string;
         budget: string;
         waterTemp: string;
