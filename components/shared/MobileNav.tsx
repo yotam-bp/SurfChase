@@ -17,7 +17,7 @@ const MobileNav: React.FC = () => {
   };
 
   return (
-    <nav className="md:hidden">
+    <nav className="md:hidden flex">
       <Sheet open={isOpen} onOpenChange={setIsOpen}>
         <SheetTrigger asChild>
           <Image
