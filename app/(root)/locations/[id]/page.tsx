@@ -30,11 +30,13 @@ const LocationDetails = async ({
     <>
       <section className="flex justify-center bg-primary-50 bg-dotted-pattern bg-contain">
         <div className="grid grid-cols-1 md:grid-cols-2 2xl:max-w-7xl">
-          <div className="relative w-full aspect-w-16 aspect-h-9 md:aspect-h-auto md:h-auto">
+          <div className="relative w-full md:h-auto">
             <Image
               src={location.imageUrl}
               alt="hero image"
-              layout="fill"
+              layout="responsive"
+              width={700}
+              height={475}
               objectFit="cover"
               objectPosition="center"
               className="h-full w-full"
@@ -85,8 +87,8 @@ const LocationDetails = async ({
 
             <div className="flex flex-col gap-2">
               <p className="p-bold-20 text-grey-600">weather on {currentMonth}:</p>
-              <p className="p-medium-16 lg:p-regular-18">🌡️ Outside Tempratures {getTemperatures().outsideTemp}</p>
-              <p className="p-medium-16 lg:p-regular-18 ">🌊 Sea Tempratures {getTemperatures().seaTemp}</p>
+              <p className="p-medium-16 lg:p-regular-18">🌡️ Outside Temperatures {getTemperatures().outsideTemp}</p>
+              <p className="p-medium-16 lg:p-regular-18 ">🌊 Sea Temperatures {getTemperatures().seaTemp}</p>
             </div>
           </div>
         </div>

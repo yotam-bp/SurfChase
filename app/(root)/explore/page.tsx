@@ -1,5 +1,6 @@
 import Collection from "@/components/shared/Collection";
 import EventForm from "@/components/shared/EventForm";
+import { getLatestEventByUser } from "@/lib/actions/event.actions";
 import { getAllLocations } from "@/lib/actions/location.actions";
 import { SearchParamProps } from "@/types";
 import { auth } from "@clerk/nextjs";
@@ -27,9 +28,8 @@ const ExplorePage = async ({ searchParams }:SearchParamProps) => {
     page: eventsPage | ordersPage,
     limit: 6,
   };
-  const locations = await getAllLocations({
-    query
-  });
+  const locations = await getAllLocations({query});
+  const lastEventCreated = await getLatestEventByUser(userId);
   
   return (
     <>
@@ -39,11 +39,8 @@ const ExplorePage = async ({ searchParams }:SearchParamProps) => {
           <h3 className="h3-bold text-center sm:text-left">
             Best Destinations For you
           </h3>
-          {/* <Button asChild size="lg" className="button hidden sm:flex">
-            <Link href="/#events">Explore More Events</Link>
-          </Button> */}
         </div>
-        {/* <EventForm userId={userId} type="Update" /> */}
+        <EventForm userId={userId} type="Update"  event={lastEventCreated} eventId={lastEventCreated._id} />
       </section>
 
       <section className="wrapper my-8">

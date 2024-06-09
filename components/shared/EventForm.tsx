@@ -14,9 +14,8 @@ import { Input } from "@/components/ui/input";
 import { eventFormSchema } from "@/lib/validator";
 import * as z from "zod";
 import { OptionKeys, eventDefaultValues } from "@/constants";
-// import Dropdown from "./Dropdown";
 import { useEffect, useState } from "react";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams, usePathname } from "next/navigation";
 import { createEvent, updateEvent } from "@/lib/actions/event.actions";
 import { IEvent } from "@/lib/database/models/event.model";
 import { IQuestionnaire } from "@/lib/database/models/questionnaire.model";
@@ -32,6 +31,8 @@ type EventFormProps = {
 
 const EventForm = ({ userId, type, event, eventId }: EventFormProps) => {
   const [questionnaire, setQuestionnaire] = useState<IQuestionnaire[]>([]);
+  const pathname = usePathname();
+  const router = useRouter();  
 
   useEffect(() => {
     const loadQuestionnaire = async () => {
@@ -45,7 +46,7 @@ const EventForm = ({ userId, type, event, eventId }: EventFormProps) => {
   }, []);
 
   const searchParams = useSearchParams();
-  const router = useRouter();
+  const isExploreRoute = pathname === '/explore';  
 
   const form = useForm<z.infer<typeof eventFormSchema>>({
     resolver: zodResolver(eventFormSchema),
@@ -83,7 +84,7 @@ const EventForm = ({ userId, type, event, eventId }: EventFormProps) => {
     }
 
     if (type === "Update") {
-      if (!eventId) {
+      if (!eventId)  {
         router.back();
         return;
       }
@@ -94,7 +95,6 @@ const EventForm = ({ userId, type, event, eventId }: EventFormProps) => {
           event: { ...values, _id: eventId },
           path: `/search/${eventId}`,
         });
-
         if (updatedEvent) {
           form.reset();
           router.push(`/explore`);
@@ -111,40 +111,9 @@ const EventForm = ({ userId, type, event, eventId }: EventFormProps) => {
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit(onSubmit)}
-        className="flex flex-col gap-5"
+        className='flex flex-col gap-5 wrapper flex  justify-center sm:justify-between'
       >
-        <div className="flex flex-col gap-5 md:flex-col">
-          {/* <FormField
-            control={form.control}
-            name="title"
-            render={({ field }) => (
-              <FormItem className="w-full">
-                <FormControl>
-                  <Input
-                    placeholder="Search title"
-                    {...field}
-                    className="input-field"
-                  />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <FormField
-            control={form.control}
-            name="categoryId"
-            render={({ field }) => (
-              <FormItem className="w-full">
-                <FormControl>
-                  <Dropdown
-                    onChangeHandler={field.onChange}
-                    value={field.value}
-                  />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          /> */}
+        <div className={`flex flex-col gap-5 ${isExploreRoute ? 'md:flex-row' : 'md:flex-col'}`}>
           {questionnaire[0]?.options.map((option) => (
             <FormField
               key={option.key}
@@ -164,15 +133,14 @@ const EventForm = ({ userId, type, event, eventId }: EventFormProps) => {
               )}
             />
           ))}
-        <Button
-          type="submit"
-          size="lg"
-          disabled={form.formState.isSubmitting}
-          className="button col-span-2 w-full"
-        >
-
-          {form.formState.isSubmitting ? "Submitting..." : ` Search `}
-        </Button>
+          <Button
+            type="submit"
+            size="lg"
+            disabled={form.formState.isSubmitting}
+            className="button col-span-2 w-50"
+          >
+            {form.formState.isSubmitting ? "Submitting..." : `Search`}
+          </Button>
         </div>
       </form>
     </Form>

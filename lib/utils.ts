@@ -102,7 +102,7 @@ export const getTemperatureRange = (waterTemp: string): { min: number, max: numb
       return { min: -Infinity, max: 20 };
     case 'Mid':
       return { min: 20, max: 26 };
-    case 'Hot':
+    case 'Warm':
       return { min: 26, max: Infinity };
     default:
       return null;

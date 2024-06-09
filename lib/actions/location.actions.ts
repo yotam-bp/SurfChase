@@ -61,6 +61,7 @@ export async function getHottestLocations(limit: number) {
 }
 
 export async function getAllLocations({ query }: getAllLocationsParams) {
+  
   try {
     await connectToDatabase();
     const { surfingLevel, budget, waterTemp, monthToTravel, page, limit } = query;
@@ -72,7 +73,6 @@ export async function getAllLocations({ query }: getAllLocationsParams) {
     let seasonConditions = {};
     if (surfingLevel) {
       const seasonIds = await Season.distinct('_id', { surfingLevel });
-      seasonConditions = { seasons: { $in: seasonIds } };
     }
 
     // Monthly temperature condition
@@ -90,6 +90,7 @@ export async function getAllLocations({ query }: getAllLocationsParams) {
           }
         }).distinct('_id');
         temperatureConditions = { monthlyTemperatures: { $in: monthlyTemperatureIds } };
+        
       }
     }
 
@@ -105,7 +106,7 @@ export async function getAllLocations({ query }: getAllLocationsParams) {
     const skipAmount = (Number(page) - 1) * limit;
     const locationsQuery = Location.find(conditions)
       .sort({ createdAt: 'desc' })
-      .skip(skipAmount)
+      // .skip(skipAmount)
       // .limit(limit);
 
     const locations = await populateLocation(locationsQuery).exec();
